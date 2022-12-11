@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Family Doe",
+    "members": [
+      {
+      "name": "John",
+      "email": "john.doe@email.com"
+      },
+      {
+      "name": "Jane",
+      "email": "jane.doe@email.com"
+      }
+    ]
+  },
+  {
+    "name": "Guy",
+    "members": [
+      {
+      "name": "Billy",
+      "email": "billy.guy@email.com"
+      },
+      {
+      "name": "Don",
+      "email": "don.guy@email.com"
+      }
+    ]
+  }
+]
