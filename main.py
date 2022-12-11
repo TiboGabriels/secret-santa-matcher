@@ -33,6 +33,18 @@ def main():
     if live_mode == 'True':
         print("Running in live mode")
 
+        smtp_server = os.getenv("LIVE_SMTP_SERVER")
+        smtp_port = int(os.getenv("LIVE_SMTP_PORT"))
+        smtp_user = os.getenv("LIVE_SMTP_USERNAME")
+        smtp_password = os.getenv("LIVE_SMTP_PASSWORD")
+        print("Connecting to SMTP server {}:{} as {}".format(smtp_server, smtp_port, smtp_user))
+
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.ehlo(name="secret_santa")
+            server.login(smtp_user, smtp_password)
+            send_emails(matched_people, server, email_from, name_from)
+
     else:
         print("Running in test mode")
 
@@ -76,7 +88,6 @@ def send_emails(matched_people, server, email_from, name_from):
 Gelukkige feestdagen, {}
 Jij mag een cadeautje geven aan {}. Veel plezier!
             """.format(match["name"], match["recipient"])
-        print(text)
         message = 'Subject: {}\n\n{}'.format(subject, text)
         server.sendmail(from_email, to_email, message)
         count += 1
